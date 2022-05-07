@@ -62,13 +62,52 @@ function fetchSinglePokemonData(pokemonId){
 // fetchKantoPokemon()
 
 
+// type helper function
+function pokemonTypeCreator(singlePokemonData, ul){
+    for (i = 0; i < 3; i++){
+        let pokemonType = singlePokemonData.types[i].type.name
+        console.log(pokemonType)
+
+        const pokemonTypesEl = document.createElement("li")
+
+        // set styling
+
+        pokemonTypesEl.textContent = "Type: " + pokemonType
+
+        ul.append(pokemonTypesEl)
+}
+}
+
+
 function renderPokemon(singlePokemonData) {
 
 
     let pokemonName = singlePokemonData.name
     let pokemonNo = singlePokemonData.id
     let pokemonHeight = singlePokemonData.height
+    let pokemonWeight = singlePokemonData.weight
     let pokemonImg = singlePokemonData.sprites.front_default
+    
+    // helper function to loop through types
+    pokemonTypeCreator(singlePokemonData.types)
+
+    // for (i = 0; i < 3; i++){
+    //     let pokemonType = singlePokemonData.types[i].type.name
+    //     console.log(pokemonType)
+
+        
+
+    //     // set styling
+
+    //     pokemonTypesEl.textContent = "Type: " + pokemonType
+    //     pokemonCard.append(
+    //         pokemonTypesEl
+    //     )
+    // }
+
+    
+
+    
 
     
 
@@ -76,7 +115,10 @@ function renderPokemon(singlePokemonData) {
     const pokemonNameEl = document.createElement("h2")
     const pokemonNoEl = document.createElement("p")
     const pokemonHeightEl = document.createElement("p")
+    const pokemonWeightEl = document.createElement("p")
     const pokemonImgEl = document.createElement("img")
+    // iterating
+    const pokemonTypesEl = document.createElement("ul")
 
     // set styling attributes
 
@@ -85,18 +127,22 @@ function renderPokemon(singlePokemonData) {
     pokemonNameEl.textContent = pokemonName
     pokemonNoEl.textContent = "Pokemon No: " + pokemonNo
     pokemonHeightEl.textContent = "Height: " + pokemonHeight
+    pokemonWeightEl.textContent = "Weight: " + pokemonWeight
 
     pokemonCard.append(
         pokemonNameEl,
         pokemonNoEl,
         pokemonImgEl,
-        pokemonHeightEl
+        pokemonHeightEl,
+        pokemonWeightEl,
+        pokemonTypesEl
     )
 
     document.getElementById('pokemon-container').appendChild(pokemonCard)
 
 
 }
+
 
 
 
