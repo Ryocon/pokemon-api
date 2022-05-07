@@ -52,6 +52,7 @@ function fetchSinglePokemonData(pokemonId){
       console.log(singlePokemonData.name)
       renderPokemon(singlePokemonData)
       })
+      debugger
       
     }
 
@@ -63,52 +64,27 @@ function fetchSinglePokemonData(pokemonId){
 
 
 // type helper function
-function pokemonTypeCreator(singlePokemonData, ul){
-    for (i = 0; i < 3; i++){
-        let pokemonType = singlePokemonData.types[i].type.name
-        console.log(pokemonType)
+function pokemonTypeCreator(types, ul){
+    
+    types.forEach(function(type) {
+        let typesLi = document.createElement("li")
 
-        const pokemonTypesEl = document.createElement("li")
+        typesLi.innerText = type["type"] ["name"]
 
-        // set styling
-
-        pokemonTypesEl.textContent = "Type: " + pokemonType
-
-        ul.append(pokemonTypesEl)
+        ul.append(typesLi)
+    })
 }
-}
+
 
 
 function renderPokemon(singlePokemonData) {
 
 
-    let pokemonName = singlePokemonData.name
+    let pokemonName = singlePokemonData.name.toUpperCase()
     let pokemonNo = singlePokemonData.id
     let pokemonHeight = singlePokemonData.height
     let pokemonWeight = singlePokemonData.weight
     let pokemonImg = singlePokemonData.sprites.front_default
-    
-    // helper function to loop through types
-    pokemonTypeCreator(singlePokemonData.types)
-
-    // for (i = 0; i < 3; i++){
-    //     let pokemonType = singlePokemonData.types[i].type.name
-    //     console.log(pokemonType)
-
-        
-
-    //     // set styling
-
-    //     pokemonTypesEl.textContent = "Type: " + pokemonType
-    //     pokemonCard.append(
-    //         pokemonTypesEl
-    //     )
-    // }
-
-    
-
-    
-
     
 
     const pokemonCard = document.createElement("div")
@@ -119,6 +95,9 @@ function renderPokemon(singlePokemonData) {
     const pokemonImgEl = document.createElement("img")
     // iterating
     const pokemonTypesEl = document.createElement("ul")
+
+    // helper function to loop through types
+    pokemonTypeCreator(singlePokemonData.types, pokemonTypesEl)
 
     // set styling attributes
 
