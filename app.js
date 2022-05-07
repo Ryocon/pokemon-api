@@ -8,7 +8,6 @@ searchBtn.addEventListener("click", (event) => {
     userInput = userSearch.value.trim()
     // takes userInput to search a specific pokemon
     fetchSearchedPokemon(userInput)
-    // renderPokemon(userInput)
 })
 
 // displays all kanto pokemon
@@ -38,7 +37,6 @@ function fetchSearchedPokemon() {
     .then((response) => response.json())
     .then(function(pokemonData) {
         console.log(pokemonData)
-        debugger
         let singlePokemonId = pokemonData.id
 
         fetchSinglePokemonData(singlePokemonId)
@@ -52,7 +50,9 @@ function fetchSinglePokemonData(pokemonId){
       .then(function(singlePokemonData){
       console.log(singlePokemonData)
       console.log(singlePokemonData.name)
+      renderPokemon(singlePokemonData)
       })
+      
     }
 
 
@@ -62,41 +62,41 @@ function fetchSinglePokemonData(pokemonId){
 // fetchKantoPokemon()
 
 
-// function renderPokemon(singlePokemonData) {
+function renderPokemon(singlePokemonData) {
 
 
-//     let pokemonName = singlePokemonData.name
-//     let pokemonNo = pokemonData.id
-//     let pokemonHeight = pokemonData.height
-//     // let pokemonImg = pokemonData.sprites.home.front_default
+    let pokemonName = singlePokemonData.name
+    let pokemonNo = singlePokemonData.id
+    let pokemonHeight = singlePokemonData.height
+    let pokemonImg = singlePokemonData.sprites.front_default
 
-//     console.log(pokemonName)
+    
 
-//     const pokemonCard = document.createElement("div")
-//     const pokemonNameEl = document.createElement("h2")
-//     const pokemonNoEl = document.createElement("p")
-//     const pokemonHeightEl = document.createElement("p")
-//     // const pokemonImgEl = document.createElement("img")
+    const pokemonCard = document.createElement("div")
+    const pokemonNameEl = document.createElement("h2")
+    const pokemonNoEl = document.createElement("p")
+    const pokemonHeightEl = document.createElement("p")
+    const pokemonImgEl = document.createElement("img")
 
-//     // set styling attributes
+    // set styling attributes
 
-//     // pokemonImgEl.setAttribute("src", pokemonImg)
+    pokemonImgEl.setAttribute("src", pokemonImg)
 
-//     pokemonNameEl.textContent = pokemonName
-//     pokemonNoEl.textContent = pokemonNo
-//     pokemonHeightEl.textContent = pokemonHeight
+    pokemonNameEl.textContent = pokemonName
+    pokemonNoEl.textContent = "Pokemon No: " + pokemonNo
+    pokemonHeightEl.textContent = "Height: " + pokemonHeight
 
-//     pokemonCard.append(
-//         pokemonNameEl,
-//         pokemonNoEl,
-//         // pokemonImgEl,
-//         pokemonHeightEl
-//     )
+    pokemonCard.append(
+        pokemonNameEl,
+        pokemonNoEl,
+        pokemonImgEl,
+        pokemonHeightEl
+    )
 
-//     document.getElementById('pokemon-container').appendChild(pokemonCard)
+    document.getElementById('pokemon-container').appendChild(pokemonCard)
 
 
-// }
+}
 
 
 
