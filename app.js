@@ -10,7 +10,6 @@ searchBtn.addEventListener("click", (event) => {
   fetchSearchedPokemon(userInput);
 });
 
-
 // Allow the user to search that list of pokemon by the pokemon's name.
 function fetchSearchedPokemon() {
   fetch(`https://pokeapi.co/api/v2/pokemon/${userInput}`)
@@ -92,44 +91,69 @@ function renderPokemon(singlePokemonData) {
 
 // Allow the user to maintain a list of their favourite Pokemon (extra points for data persistence (e.g. local storage)).
 
-
-
 // displays all kanto pokemon
 allPokemon.addEventListener("click", (event) => {
-    event.preventDefault();
-    fetchKantoPokemon();
-  });
-  
-  // Allow the user to view a list of pokemon (extra points for using pagination).
-  // !!! Needs pagination
-  function fetchKantoPokemon() {
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
-      .then((response) => response.json())
-      .then(function (allPokemon) {
-        allPokemon.results.forEach(function (pokemonData) {
-        //   fetchKantoPokemonData(pokemonData);
-        console.log(pokemonData)
-        fetchKantoPokemonData(pokemonData)
-        });
+  event.preventDefault();
+  fetchKantoPokemon();
+});
+
+// Allow the user to view a list of pokemon (extra points for using pagination).
+// !!! Needs pagination
+function fetchKantoPokemon() {
+  fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
+    .then((response) => response.json())
+    .then(function (allPokemon) {
+      allPokemon.results.forEach(function (pokemonData) {
+        console.log(pokemonData);
+        fetchKantoPokemonData(pokemonData);
       });
-  }
+    });
+}
+
+function fetchKantoPokemonData(pokemonData) {
+  let url = pokemonData.url;
+  fetch(url)
+    .then((response) => response.json())
+    .then(function (pokemonData) {
+      console.log(pokemonData);
+      renderKantoPokemon(pokemonData);
+    });
+}
+
+function renderKantoPokemon(pokemonData) {
+  let pokemonName = pokemonData.name;
+  let pokemonNo = pokemonData.id;
+  let pokemonHeight = pokemonData.height;
+  let pokemonWeight = pokemonData.weight;
+  let pokemonImg = pokemonData.sprites.front_default;
 
 
-  function fetchKantoPokemonData(pokemonData) {
+  const pokemonCard = document.createElement("div");
+  const pokemonNameEl = document.createElement("h2");
+  const pokemonNoEl = document.createElement("p");
+  const pokemonHeightEl = document.createElement("p");
+  const pokemonWeightEl = document.createElement("p");
+  const pokemonImgEl = document.createElement("img");
+  const pokemonTypesEl = document.createElement("ul");
 
-    let url = pokemonData.url
-    fetch(url)
-      .then((response) => response.json())
-      .then(function (PokemonData) {
-        console.log(PokemonData);;
-        // renderKantoPokemon(singlePokemonData);
-      });
-  }
+  pokemonImgEl.setAttribute("src", pokemonImg);
+
+  pokemonNameEl.textContent = pokemonName;
+  pokemonNoEl.textContent = "Pokemon No: " + pokemonNo;
+  pokemonHeightEl.textContent = "Height: " + pokemonHeight;
+  pokemonWeightEl.textContent = "Weight: " + pokemonWeight;
 
 
-  // function renderKantoPokemon() {
+  pokemonTypeCreator(pokemonData.types, pokemonTypesEl);
 
-//     let pokemonName = pokemonData.name
+  pokemonCard.append(
+    pokemonNameEl,
+    pokemonNoEl,
+    pokemonImgEl,
+    pokemonHeightEl,
+    pokemonWeightEl,
+    pokemonTypesEl
+  );
 
-
-// }
+  document.getElementById("pokemon-container").appendChild(pokemonCard);
+}
