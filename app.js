@@ -1,6 +1,8 @@
 const userSearch = document.getElementById("user-search");
 const searchBtn = document.getElementById("search-btn");
 const allPokemon = document.getElementById("all-pokemon");
+const mainSearch = document.getElementById("main-search")
+const kantoDisplay = document.getElementById("kanto-display")
 const loadMoreBtn = document.getElementById("load-more-btn");
 const favourites = document.getElementById("favourites");
 const compare = document.getElementById("compare");
@@ -9,6 +11,7 @@ const compareOne = document.getElementById("compare-one");
 const compareTwo = document.getElementById("compare-two");
 const compareOneBtn = document.getElementById("compare-one-btn");
 const compareTwoBtn = document.getElementById("compare-two-btn");
+const pokemonContainer = document.getElementById("pokemon-container")
 
 let counter = 0;
 let limit = 0;
@@ -119,10 +122,6 @@ function renderPokemon(singlePokemonData) {
 
   document.getElementById("pokemon-container").appendChild(pokemonCard);
 }
-
-// Allow the user to view a pokemon's details and statistics.
-
-// Compare two pokemon's statistics together, side-by-side.
 
 // displays all kanto pokemon
 allPokemon.addEventListener("click", (event) => {
@@ -242,16 +241,6 @@ loadMoreBtn.addEventListener("click", function () {
   fetchKantoPokemon();
 });
 
-//    let fav = document.getElementsByClassName("notFavourite")
-
-//    fav.addEventListener("click", (event) => {
-//        event.preventDefault()
-//        if (fav) {
-//            fav.removeAttribute("notFavourite")
-//            fav.setAttribute("class", "favourite material-icons")
-//            fav.innerHTML = favourite
-//        }
-//    })
 
 // Allow the user to maintain a list of their favourite Pokemon (extra points for data persistence (e.g. local storage)).
 function storageSetter(pokemonId, favouritePokemon) {
@@ -282,29 +271,39 @@ function storageAppender() {
 favourites.addEventListener("click", (event) => {
   event.preventDefault();
   storageAppender();
+  pokemonCompareContainer.setAttribute("class", "hide")
+  pokemonContainer.innerHTML=""
+  kantoDisplay.innerHTML=""
   // let favIcon = document.getElementsByClassName("favorite")
   // favIcon.setAttribute("class", "hide")
   // might need to go in storageappdner?
 });
 
-// !!! evenet listener for compare
+// event listener to reveal compare searches
 compare.addEventListener("click", (event) => {
   event.preventDefault();
+  mainSearch.innerHTML=""
+  kantoDisplay.innerHTML=""
+  pokemonContainer.innerHTML=""
+
   pokemonCompareContainer.removeAttribute("class", "hide");
 });
 
+// compare one button
 compareOneBtn.addEventListener("click", (event) => {
   event.preventDefault();
   let userInput = compareOne.value.trim().toLowerCase();
   fetchComparePokemon(userInput);
 });
 
+// compare two button
 compareTwoBtn.addEventListener("click", (event) => {
   event.preventDefault();
   let userInput = compareTwo.value.trim().toLowerCase();
   fetchComparePokemon(userInput);
 });
 
+// compare fetcher
 function fetchComparePokemon(userInput) {
   fetch(`https://pokeapi.co/api/v2/pokemon/${userInput}`)
     .then((response) => response.json())
@@ -315,7 +314,7 @@ function fetchComparePokemon(userInput) {
     });
 }
 
-// parses pokemon id to retrieve data
+// parses pokemon id to retrieve data to compare
 function fetchComparePokemonData(pokemonId) {
   fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
     .then((response) => response.json())
@@ -326,6 +325,7 @@ function fetchComparePokemonData(pokemonId) {
     });
 }
 
+// renders detailed pokemon stats for compare
 function renderComparePokemon(comparePokemonData) {
   let pokemonName = comparePokemonData.name;
   let pokemonNo = comparePokemonData.id;

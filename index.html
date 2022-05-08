@@ -16,18 +16,18 @@
         <h3>Pokemon! API</h3>
         <a href="/index.html">Home</a>
         <a href="#" id="favourites">Favourites</a>
-        <a href="#" id="compare">Compare</a>
+        <a href="/index.html" id="compare">Compare</a>
     </nav>
-
-    <div>
+<!-- trying to float here VVV -->
+    <div id="main-search" class="form-floating mb-3">
         <p>Search a Pokemon</p>
-        <input id="user-search" type="text" placeholder="Search!">
-        <button id="search-btn">I Choose You!</button>
+        <input id="user-search" class="form-floating" type="text" placeholder="Search!">
+        <button id="search-btn" class="btn btn-danger">I Choose You!</button>
     </div>
 
-    <div>
+    <div id="kanto-display">
         Display Kanto Pokemon
-        <button id="all-pokemon">Go!</button>
+        <button id="all-pokemon" class="btn btn-danger">Go!</button>
     </div>
 
     <div id="pokemon-container" class="container row row-cols-auto">
@@ -38,13 +38,13 @@
         <div id="side-one">
             <p>Pokemon One</p>
             <input id="compare-one" type="text" placeholder="Search a Pokemon">
-            <button id="compare-one-btn">Go!</button>
+            <button id="compare-one-btn" class="btn btn-danger">Go!</button>
         </div>
 
         <div id="side-two">
             <p>Pokemon Two</p>
             <input id="compare-two" type="text" placeholder="Search another Pokemon">
-            <button id="compare-two-btn">Go!</button>
+            <button id="compare-two-btn" class="btn btn-danger">Go!</button>
         </div>
 
     </div>
