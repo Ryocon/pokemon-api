@@ -2,6 +2,7 @@ const userSearch = document.getElementById("user-search");
 const searchBtn = document.getElementById("search-btn");
 const allPokemon = document.getElementById("all-pokemon");
 const loadMoreBtn = document.getElementById("load-more-btn");
+const favourites = document.getElementById("favourites")
 
 let counter = 0;
 let limit = 0;
@@ -91,7 +92,7 @@ function renderPokemon(singlePokemonData) {
           favIcon.removeAttribute("notFavourite")
           favIcon.setAttribute("class", "favorite material-icons btn")
           favIcon.innerHTML = "favorite"
-          storageSetter(pokemonName, pokemonNo)
+          storageSetter(pokemonNo, pokemonName)
       } 
 
     //   if (favIcon.innerHTML === "favorite") {
@@ -230,12 +231,12 @@ loadMoreBtn.addEventListener("click", function () {
 //    })
 
 
-function storageSetter(favouritePokemon, pokemonId) {
+function storageSetter(pokemonId, favouritePokemon) {
     
 
     // let pokemonId = pokemonData.id
 
-    let storageParams = { favouritePokemon, pokemonId }
+    let storageParams = {pokemonId, favouritePokemon }
 
     let favouriteStorage = JSON.parse(localStorage.getItem("favourite-pokemon")) || []
 
@@ -250,3 +251,22 @@ function storageSetter(favouritePokemon, pokemonId) {
 function storageGetter() {
     return JSON.parse(localStorage.getItem("favourite-pokemon"))
 }
+
+function storageAppender() {
+
+    debugger
+    let storedFavourites = storageGetter()
+
+    // let fetchFavourites = JSON.stringify(storedFavourites)
+
+    let favId = storedFavourites[0].pokemonId
+    
+
+    // let idTrim = fetchFavourites.trim()
+
+    fetchSinglePokemonData(favId)
+}
+
+favourites.addEventListener("click", (event) => {
+    storageAppender()
+})
