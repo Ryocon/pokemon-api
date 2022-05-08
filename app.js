@@ -1,9 +1,10 @@
 const userSearch = document.getElementById("user-search");
 const searchBtn = document.getElementById("search-btn");
 const allPokemon = document.getElementById("all-pokemon");
-const loadMoreBtn = document.getElementById("load-more-btn")
+const loadMoreBtn = document.getElementById("load-more-btn");
 
-let counter = 1
+let counter = 0;
+let limit = 0;
 
 // search button eventListener
 searchBtn.addEventListener("click", (event) => {
@@ -36,7 +37,6 @@ function fetchSinglePokemonData(pokemonId) {
     });
 }
 
-
 // type helper function
 function pokemonTypeCreator(types, ul) {
   types.forEach(function (type) {
@@ -64,6 +64,7 @@ function renderPokemon(singlePokemonData) {
   const pokemonImgEl = document.createElement("img");
   // iterating
   const pokemonTypesEl = document.createElement("ul");
+  const favIcon = document.createElement("button")
 
   // helper function to loop through types
   pokemonTypeCreator(singlePokemonData.types, pokemonTypesEl);
@@ -71,19 +72,37 @@ function renderPokemon(singlePokemonData) {
   // set styling attributes
 
   pokemonImgEl.setAttribute("src", pokemonImg);
+  favIcon.setAttribute("class", "material-icons notFavourite btn")
+
+  favIcon.innerHTML = "favorite_border"
 
   pokemonNameEl.textContent = pokemonName;
   pokemonNoEl.textContent = "Pokemon No: " + pokemonNo;
   pokemonHeightEl.textContent = "Height: " + pokemonHeight;
   pokemonWeightEl.textContent = "Weight: " + pokemonWeight;
 
+
+
+  favIcon.addEventListener("click", (event) => {
+      event.preventDefault()
+      if (favIcon) {
+          favIcon.removeAttribute("notFavourite")
+          favIcon.setAttribute("class", "favorite material-icons btn")
+          favIcon.innerHTML = "favorite"
+      }
+  })
+
+
+
   pokemonCard.append(
     pokemonNameEl,
     pokemonNoEl,
     pokemonImgEl,
+    favIcon,
     pokemonHeightEl,
     pokemonWeightEl,
-    pokemonTypesEl
+    pokemonTypesEl,
+    
   );
 
   document.getElementById("pokemon-container").appendChild(pokemonCard);
@@ -98,14 +117,15 @@ function renderPokemon(singlePokemonData) {
 // displays all kanto pokemon
 allPokemon.addEventListener("click", (event) => {
   event.preventDefault();
-  counter = 0
+  counter = 0;
+  limit = 20;
   fetchKantoPokemon();
 });
 
 // Allow the user to view a list of pokemon (extra points for using pagination).
-// !!! Needs pagination
+// has variable limit and offset for pagination
 function fetchKantoPokemon() {
-  fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${counter}`)
+  fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${counter}`)
     .then((response) => response.json())
     .then(function (allPokemon) {
       allPokemon.results.forEach(function (pokemonData) {
@@ -134,9 +154,8 @@ function renderKantoPokemon(pokemonData) {
   let pokemonWeight = pokemonData.weight;
   let pokemonImg = pokemonData.sprites.front_default;
 
-
   const pokemonCard = document.createElement("div");
-  const pokemonNameEl = document.createElement("h2");
+  const pokemonNameEl = document.createElement("h4");
   const pokemonNoEl = document.createElement("p");
   const pokemonHeightEl = document.createElement("p");
   const pokemonWeightEl = document.createElement("p");
@@ -145,13 +164,12 @@ function renderKantoPokemon(pokemonData) {
 
   pokemonImgEl.setAttribute("src", pokemonImg);
 
+  pokemonCard.setAttribute("class", "col p-4");
+
   pokemonNameEl.textContent = pokemonName;
   pokemonNoEl.textContent = "Pokemon No: " + pokemonNo;
   pokemonHeightEl.textContent = "Height: " + pokemonHeight;
   pokemonWeightEl.textContent = "Weight: " + pokemonWeight;
-
-
-  
 
   pokemonTypeCreator(pokemonData.types, pokemonTypesEl);
 
@@ -167,8 +185,37 @@ function renderKantoPokemon(pokemonData) {
   document.getElementById("pokemon-container").appendChild(pokemonCard);
 }
 
-loadMoreBtn.addEventListener("click", function() {
-    counter += 20
-    
-    fetchKantoPokemon()
-})
+// loadmorebutton for all pokemon search
+loadMoreBtn.addEventListener("click", function () {
+  // counter += 20
+  // wibbly code - still goes past 151 then loops back to 0
+
+  if (counter < 151) {
+    counter += 20 % 151;
+  } else {
+    counter = 0;
+    loadMoreBtn.setAttribute("class", "display: none");
+  }
+
+  if (limit < 151) {
+    limit === 20 % 151;
+  } else {
+    limit = 0;
+  }
+
+  fetchKantoPokemon();
+});
+
+
+
+
+//    let fav = document.getElementsByClassName("notFavourite")
+
+//    fav.addEventListener("click", (event) => {
+//        event.preventDefault()
+//        if (fav) {
+//            fav.removeAttribute("notFavourite")
+//            fav.setAttribute("class", "favourite material-icons")
+//            fav.innerHTML = favourite
+//        }
+//    })
