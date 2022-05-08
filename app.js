@@ -2,17 +2,17 @@ const userSearch = document.getElementById("user-search");
 const searchBtn = document.getElementById("search-btn");
 const allPokemon = document.getElementById("all-pokemon");
 const loadMoreBtn = document.getElementById("load-more-btn");
-const favourites = document.getElementById("favourites")
-const compare = document.getElementById("compare")
-const pokemonCompareContainer = document.getElementById("pokemon-compare")
-const compareOne = document.getElementById("compare-one")
-const comparetwo = document.getElementById("compare-two")
-const compareOneBtn = document.getElementById("compare-one-btn")
-const compareTwoBtn = document.getElementById("compare-two-btn")
+const favourites = document.getElementById("favourites");
+const compare = document.getElementById("compare");
+const pokemonCompareContainer = document.getElementById("pokemon-compare");
+const compareOne = document.getElementById("compare-one");
+const compareTwo = document.getElementById("compare-two");
+const compareOneBtn = document.getElementById("compare-one-btn");
+const compareTwoBtn = document.getElementById("compare-two-btn");
 
 let counter = 0;
 let limit = 0;
-let favouritePokemon = document.getElementsByClassName("favorite")
+let favouritePokemon = document.getElementsByClassName("favorite");
 
 // search button eventListener
 searchBtn.addEventListener("click", (event) => {
@@ -72,7 +72,7 @@ function renderPokemon(singlePokemonData) {
   const pokemonImgEl = document.createElement("img");
   // iterating
   const pokemonTypesEl = document.createElement("ul");
-  const favIcon = document.createElement("button")
+  const favIcon = document.createElement("button");
 
   // helper function to loop through types
   pokemonTypeCreator(singlePokemonData.types, pokemonTypesEl);
@@ -80,35 +80,32 @@ function renderPokemon(singlePokemonData) {
   // set styling attributes
 
   pokemonImgEl.setAttribute("src", pokemonImg);
-  favIcon.setAttribute("class", "material-icons notFavourite btn")
+  favIcon.setAttribute("class", "material-icons notFavourite btn");
 
-  favIcon.innerHTML = "favorite_border"
+  favIcon.innerHTML = "favorite_border";
 
   pokemonNameEl.textContent = pokemonName;
   pokemonNoEl.textContent = "Pokemon No: " + pokemonNo;
   pokemonHeightEl.textContent = "Height: " + pokemonHeight;
   pokemonWeightEl.textContent = "Weight: " + pokemonWeight;
 
-
-// toggles favourite icon
-// !!! ONLY TOGGLES ON
+  // toggles favourite icon
+  // !!! ONLY TOGGLES ON
   favIcon.addEventListener("click", (event) => {
-      event.preventDefault()
-      if (favIcon) {
-          favIcon.removeAttribute("notFavourite")
-          favIcon.setAttribute("class", "favorite material-icons btn")
-          favIcon.innerHTML = "favorite"
-          storageSetter(pokemonNo, pokemonName)
-      } 
+    event.preventDefault();
+    if (favIcon) {
+      favIcon.removeAttribute("notFavourite");
+      favIcon.setAttribute("class", "favorite material-icons btn");
+      favIcon.innerHTML = "favorite";
+      storageSetter(pokemonNo, pokemonName);
+    }
 
     //   if (favIcon.innerHTML === "favorite") {
     //     favIcon.removeAttribute("favorite")
     //     favIcon.setAttribute("class", "notFavorite material-icons btn")
     //     favIcon.innerHTML = "favorite_border"
     //   }
-  })
-
-
+  });
 
   pokemonCard.append(
     pokemonNameEl,
@@ -117,8 +114,7 @@ function renderPokemon(singlePokemonData) {
     favIcon,
     pokemonHeightEl,
     pokemonWeightEl,
-    pokemonTypesEl,
-    
+    pokemonTypesEl
   );
 
   document.getElementById("pokemon-container").appendChild(pokemonCard);
@@ -127,8 +123,6 @@ function renderPokemon(singlePokemonData) {
 // Allow the user to view a pokemon's details and statistics.
 
 // Compare two pokemon's statistics together, side-by-side.
-
-
 
 // displays all kanto pokemon
 allPokemon.addEventListener("click", (event) => {
@@ -177,15 +171,15 @@ function renderKantoPokemon(pokemonData) {
   const pokemonWeightEl = document.createElement("p");
   const pokemonImgEl = document.createElement("img");
   const pokemonTypesEl = document.createElement("ul");
-  const favIcon = document.createElement("button")
+  const favIcon = document.createElement("button");
 
   pokemonImgEl.setAttribute("src", pokemonImg);
 
-  loadMoreBtn.removeAttribute("class", "hide")
+  loadMoreBtn.removeAttribute("class", "hide");
 
-  favIcon.setAttribute("class", "material-icons notFavourite btn")
+  favIcon.setAttribute("class", "material-icons notFavourite btn");
 
-  favIcon.innerHTML = "favorite_border"
+  favIcon.innerHTML = "favorite_border";
 
   pokemonCard.setAttribute("class", "col p-4");
 
@@ -197,22 +191,22 @@ function renderKantoPokemon(pokemonData) {
   pokemonTypeCreator(pokemonData.types, pokemonTypesEl);
 
   // toggles favourite icon
-// !!! ONLY TOGGLES ON
-favIcon.addEventListener("click", (event) => {
-    event.preventDefault()
+  // !!! ONLY TOGGLES ON
+  favIcon.addEventListener("click", (event) => {
+    event.preventDefault();
     if (favIcon) {
-        favIcon.removeAttribute("notFavourite")
-        favIcon.setAttribute("class", "favorite material-icons btn")
-        favIcon.innerHTML = "favorite"
-        storageSetter(pokemonNo, pokemonName)
-    } 
+      favIcon.removeAttribute("notFavourite");
+      favIcon.setAttribute("class", "favorite material-icons btn");
+      favIcon.innerHTML = "favorite";
+      storageSetter(pokemonNo, pokemonName);
+    }
 
-  //   if (favIcon.innerHTML === "favorite") {
-  //     favIcon.removeAttribute("favorite")
-  //     favIcon.setAttribute("class", "notFavorite material-icons btn")
-  //     favIcon.innerHTML = "favorite_border"
-  //   }
-})
+    //   if (favIcon.innerHTML === "favorite") {
+    //     favIcon.removeAttribute("favorite")
+    //     favIcon.setAttribute("class", "notFavorite material-icons btn")
+    //     favIcon.innerHTML = "favorite_border"
+    //   }
+  });
 
   pokemonCard.append(
     pokemonNameEl,
@@ -248,9 +242,6 @@ loadMoreBtn.addEventListener("click", function () {
   fetchKantoPokemon();
 });
 
-
-
-
 //    let fav = document.getElementsByClassName("notFavourite")
 
 //    fav.addEventListener("click", (event) => {
@@ -262,76 +253,146 @@ loadMoreBtn.addEventListener("click", function () {
 //        }
 //    })
 
-
-
 // Allow the user to maintain a list of their favourite Pokemon (extra points for data persistence (e.g. local storage)).
 function storageSetter(pokemonId, favouritePokemon) {
+  let storageParams = { pokemonId, favouritePokemon };
 
-    let storageParams = {pokemonId, favouritePokemon }
+  let favouriteStorage =
+    JSON.parse(localStorage.getItem("favourite-pokemon")) || [];
 
-    let favouriteStorage = JSON.parse(localStorage.getItem("favourite-pokemon")) || []
+  favouriteStorage.push(storageParams);
 
-    favouriteStorage.push(storageParams)
-
-    localStorage.setItem(
-        "favourite-pokemon",
-        JSON.stringify(favouriteStorage)
-    )
+  localStorage.setItem("favourite-pokemon", JSON.stringify(favouriteStorage));
 }
 
 function storageGetter() {
-    return JSON.parse(localStorage.getItem("favourite-pokemon"))
+  return JSON.parse(localStorage.getItem("favourite-pokemon"));
 }
 
 function storageAppender() {
+  let storedFavourites = storageGetter();
 
-    let storedFavourites = storageGetter()
-
-    for (i = 0; i < storedFavourites.length; i++) {
-        let favId = storedFavourites[i].pokemonId
-        fetchSinglePokemonData(favId)
-    }
-
+  for (i = 0; i < storedFavourites.length; i++) {
+    let favId = storedFavourites[i].pokemonId;
+    fetchSinglePokemonData(favId);
+  }
 }
 
 // eventlistener for adding to favourites
 favourites.addEventListener("click", (event) => {
-    event.preventDefault()
-    storageAppender()
-    // let favIcon = document.getElementsByClassName("favorite")
-    // favIcon.setAttribute("class", "hide")
-    // might need to go in storageappdner?
-})
-
+  event.preventDefault();
+  storageAppender();
+  // let favIcon = document.getElementsByClassName("favorite")
+  // favIcon.setAttribute("class", "hide")
+  // might need to go in storageappdner?
+});
 
 // !!! evenet listener for compare
 compare.addEventListener("click", (event) => {
-    event.preventDefault()
-    pokemonCompareContainer.removeAttribute("class", "hide")
-    // pokemonCompare()
-})
+  event.preventDefault();
+  pokemonCompareContainer.removeAttribute("class", "hide");
+});
 
+compareOneBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  let userInput = compareOne.value.trim().toLowerCase();
+  fetchComparePokemon(userInput);
+});
 
+compareTwoBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  let userInput = compareTwo.value.trim().toLowerCase();
+  fetchComparePokemon(userInput);
+});
 
+function fetchComparePokemon(userInput) {
+  fetch(`https://pokeapi.co/api/v2/pokemon/${userInput}`)
+    .then((response) => response.json())
+    .then(function (pokemonData) {
+      console.log(pokemonData);
+      let comparePokemonId = pokemonData.id;
+      fetchComparePokemonData(comparePokemonId);
+    });
+}
 
-function fetchComparePokemon() {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${userInput}`)
-      .then((response) => response.json())
-      .then(function (pokemonData) {
-        console.log(pokemonData);
-        let comparePokemonId = pokemonData.id;
-  
-        fetchSinglePokemonData(comparePokemonId);
-      });
-  }
-  
-  // parses pokemon id to retrieve data
-  function fetchComparePokemonData(pokemonId) {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
-      .then((response) => response.json())
-      .then(function (singlePokemonData) {
-        console.log(singlePokemonData);
-        console.log(singlePokemonData.name);
-        renderPokemon(singlePokemonData);
-      });
-  }
+// parses pokemon id to retrieve data
+function fetchComparePokemonData(pokemonId) {
+  fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
+    .then((response) => response.json())
+    .then(function (comparePokemonData) {
+      console.log(comparePokemonData);
+      console.log(comparePokemonData.name);
+      renderComparePokemon(comparePokemonData);
+    });
+}
+
+function renderComparePokemon(comparePokemonData) {
+  let pokemonName = comparePokemonData.name;
+  let pokemonNo = comparePokemonData.id;
+  let pokemonHeight = comparePokemonData.height;
+  let pokemonWeight = comparePokemonData.weight;
+  let pokemonImg = comparePokemonData.sprites.front_default;
+  // stats
+
+  let pokemonHp = comparePokemonData.stats[0].base_stat;
+  let pokemonAttack = comparePokemonData.stats[1].base_stat;
+  let pokemonDefense = comparePokemonData.stats[2].base_stat;
+  let pokemonSpecialAttack = comparePokemonData.stats[3].base_stat;
+  let pokemonSpecialDefense = comparePokemonData.stats[4].base_stat;
+  let pokemonSpeed = comparePokemonData.stats[5].base_stat;
+
+  const pokemonCard = document.createElement("div");
+  const pokemonNameEl = document.createElement("h4");
+  const pokemonNoEl = document.createElement("p");
+  const pokemonHeightEl = document.createElement("p");
+  const pokemonWeightEl = document.createElement("p");
+
+  // stats
+  const pokemonHpEl = document.createElement("p");
+  const pokemonAttackEl = document.createElement("p");
+  const pokemonDefenseEl = document.createElement("p");
+  const pokemonSpecialAttackEl = document.createElement("p");
+  const pokemonSpecialDefenseEl = document.createElement("p");
+  const pokemonSpeedEl = document.createElement("p");
+
+  const pokemonImgEl = document.createElement("img");
+  const pokemonTypesEl = document.createElement("ul");
+
+  pokemonImgEl.setAttribute("src", pokemonImg);
+
+  pokemonCard.setAttribute("class", "col p-4");
+
+  pokemonNameEl.textContent = pokemonName;
+  pokemonNoEl.textContent = "Pokemon No: " + pokemonNo;
+  pokemonHeightEl.textContent = "Height: " + pokemonHeight;
+  pokemonWeightEl.textContent = "Weight: " + pokemonWeight;
+
+  //   stats
+  pokemonHpEl.textContent = "HP: " + pokemonHp;
+  pokemonAttackEl.textContent = "Attack: " + pokemonAttack;
+  pokemonDefenseEl.textContent = "Defence: " + pokemonDefense;
+  pokemonSpecialAttackEl.textContent =
+    "Special Attack: " + pokemonSpecialAttack;
+  pokemonSpecialDefenseEl.textContent =
+    "Special Defense: " + pokemonSpecialDefense;
+  pokemonSpeedEl.textContent = "Speed: " + pokemonSpeed;
+
+  pokemonTypeCreator(comparePokemonData.types, pokemonTypesEl);
+
+  pokemonCard.append(
+    pokemonNameEl,
+    pokemonNoEl,
+    pokemonImgEl,
+    pokemonHeightEl,
+    pokemonWeightEl,
+    pokemonHpEl,
+    pokemonAttackEl,
+    pokemonDefenseEl,
+    pokemonSpecialAttackEl,
+    pokemonSpecialDefenseEl,
+    pokemonSpeedEl,
+    pokemonTypesEl
+  );
+
+  document.getElementById("side-one").appendChild(pokemonCard);
+}
