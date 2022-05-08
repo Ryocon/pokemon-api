@@ -5,11 +5,12 @@ const loadMoreBtn = document.getElementById("load-more-btn");
 
 let counter = 0;
 let limit = 0;
+let favouritePokemon = document.getElementsByClassName("favorite")
 
 // search button eventListener
 searchBtn.addEventListener("click", (event) => {
   event.preventDefault();
-  userInput = userSearch.value.trim();
+  userInput = userSearch.value.trim().toLowerCase();
   // takes userInput to search a specific pokemon
   fetchSearchedPokemon(userInput);
 });
@@ -82,14 +83,22 @@ function renderPokemon(singlePokemonData) {
   pokemonWeightEl.textContent = "Weight: " + pokemonWeight;
 
 
-
+// toggles favourite icon
+// !!! ONLY TOGGLES ON
   favIcon.addEventListener("click", (event) => {
       event.preventDefault()
       if (favIcon) {
           favIcon.removeAttribute("notFavourite")
           favIcon.setAttribute("class", "favorite material-icons btn")
           favIcon.innerHTML = "favorite"
-      }
+          storageSetter(pokemonName, pokemonNo)
+      } 
+
+    //   if (favIcon.innerHTML === "favorite") {
+    //     favIcon.removeAttribute("favorite")
+    //     favIcon.setAttribute("class", "notFavorite material-icons btn")
+    //     favIcon.innerHTML = "favorite_border"
+    //   }
   })
 
 
@@ -219,3 +228,25 @@ loadMoreBtn.addEventListener("click", function () {
 //            fav.innerHTML = favourite
 //        }
 //    })
+
+
+function storageSetter(favouritePokemon, pokemonId) {
+    
+
+    // let pokemonId = pokemonData.id
+
+    let storageParams = { favouritePokemon, pokemonId }
+
+    let favouriteStorage = JSON.parse(localStorage.getItem("favourite-pokemon")) || []
+
+    favouriteStorage.push(storageParams)
+
+    localStorage.setItem(
+        "favourite-pokemon",
+        JSON.stringify(favouriteStorage)
+    )
+}
+
+function storageGetter() {
+    return JSON.parse(localStorage.getItem("favourite-pokemon"))
+}
