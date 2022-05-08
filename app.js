@@ -1,6 +1,9 @@
 const userSearch = document.getElementById("user-search");
 const searchBtn = document.getElementById("search-btn");
 const allPokemon = document.getElementById("all-pokemon");
+const loadMoreBtn = document.getElementById("load-more-btn")
+
+let counter = 1
 
 // search button eventListener
 searchBtn.addEventListener("click", (event) => {
@@ -22,6 +25,7 @@ function fetchSearchedPokemon() {
     });
 }
 
+// parses pokemon id to retrieve data
 function fetchSinglePokemonData(pokemonId) {
   fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
     .then((response) => response.json())
@@ -32,7 +36,6 @@ function fetchSinglePokemonData(pokemonId) {
     });
 }
 
-// fetchKantoPokemon()
 
 // type helper function
 function pokemonTypeCreator(types, ul) {
@@ -45,6 +48,7 @@ function pokemonTypeCreator(types, ul) {
   });
 }
 
+// function to render single search pokemon
 function renderPokemon(singlePokemonData) {
   let pokemonName = singlePokemonData.name;
   let pokemonNo = singlePokemonData.id;
@@ -94,13 +98,14 @@ function renderPokemon(singlePokemonData) {
 // displays all kanto pokemon
 allPokemon.addEventListener("click", (event) => {
   event.preventDefault();
+  counter = 0
   fetchKantoPokemon();
 });
 
 // Allow the user to view a list of pokemon (extra points for using pagination).
 // !!! Needs pagination
 function fetchKantoPokemon() {
-  fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
+  fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${counter}`)
     .then((response) => response.json())
     .then(function (allPokemon) {
       allPokemon.results.forEach(function (pokemonData) {
@@ -110,6 +115,7 @@ function fetchKantoPokemon() {
     });
 }
 
+// fetches all pokemon data
 function fetchKantoPokemonData(pokemonData) {
   let url = pokemonData.url;
   fetch(url)
@@ -120,6 +126,7 @@ function fetchKantoPokemonData(pokemonData) {
     });
 }
 
+// renders all pokemon
 function renderKantoPokemon(pokemonData) {
   let pokemonName = pokemonData.name;
   let pokemonNo = pokemonData.id;
@@ -144,6 +151,8 @@ function renderKantoPokemon(pokemonData) {
   pokemonWeightEl.textContent = "Weight: " + pokemonWeight;
 
 
+  
+
   pokemonTypeCreator(pokemonData.types, pokemonTypesEl);
 
   pokemonCard.append(
@@ -157,3 +166,9 @@ function renderKantoPokemon(pokemonData) {
 
   document.getElementById("pokemon-container").appendChild(pokemonCard);
 }
+
+loadMoreBtn.addEventListener("click", function() {
+    counter += 20
+    
+    fetchKantoPokemon()
+})
