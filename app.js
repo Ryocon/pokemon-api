@@ -175,6 +175,7 @@ function renderKantoPokemon(pokemonData) {
   pokemonImgEl.setAttribute("src", pokemonImg);
 
   loadMoreBtn.removeAttribute("class", "hide");
+  loadMoreBtn.setAttribute("class", "btn btn-danger align-self-center d-flex align-self-center")
 
   favIcon.setAttribute("class", "material-icons notFavourite btn");
 
@@ -229,7 +230,7 @@ loadMoreBtn.addEventListener("click", function () {
     counter += 20 % 151;
   } else {
     counter = 0;
-    loadMoreBtn.setAttribute("class", "display: none");
+    loadMoreBtn.setAttribute("class", "hide");
   }
 
   if (limit < 151) {
@@ -237,7 +238,6 @@ loadMoreBtn.addEventListener("click", function () {
   } else {
     limit = 0;
   }
-
   fetchKantoPokemon();
 });
 

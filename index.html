@@ -11,24 +11,28 @@
       rel="stylesheet">
       <link rel="stylesheet" href="/styles.css">
 </head>
-<body class="p-4">
-    <nav>
-        <h3>Pokemon! API</h3>
-        <a href="/index.html">Home</a>
-        <a href="#" id="favourites">Favourites</a>
-        <a href="/index.html" id="compare">Compare</a>
+<body class="p-4 container">
+    <nav class="navbar navbar-expand bg-danger mx-auto rounded-pill">
+        <h3 class="ms-4 p-2">Pokemon! API</h3>
+        <a href="/index.html" class="p-2">Home</a>
+        <a href="#" id="favourites" class="p-2">Favourites</a>
+        <a href="/index.html" id="compare" class="p-2">Compare</a>
     </nav>
+
+<div class="d-flex row justify-content-center">
 <!-- trying to float here VVV -->
-    <div id="main-search" class="form-floating mb-3">
-        <p>Search a Pokemon</p>
-        <input id="user-search" class="form-floating" type="text" placeholder="Search!">
-        <button id="search-btn" class="btn btn-danger">I Choose You!</button>
+    <div id="main-search" class="col justify-content-md-center form-floating mb-3 mt-3">
+        <input id="user-search" class="form-control" type="text" placeholder="Search!">
+        <label for="user-search" class="ms-2">Search a Pokemon</label>
+        <button id="search-btn" class="btn btn-danger col ml-4 p-2 mt-2">I Choose You!</button>
     </div>
 
-    <div id="kanto-display">
-        Display Kanto Pokemon
-        <button id="all-pokemon" class="btn btn-danger">Go!</button>
+    <div id="kanto-display" class="col mb-3 mt-4 ms-4 ">
+        <p>Display Kanto Pokemon</p>
+        <button id="all-pokemon" class="btn btn-danger ms-2">Go!</button>
     </div>
+
+</div>
 
     <div id="pokemon-container" class="container row row-cols-auto">
 
