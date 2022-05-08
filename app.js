@@ -3,6 +3,12 @@ const searchBtn = document.getElementById("search-btn");
 const allPokemon = document.getElementById("all-pokemon");
 const loadMoreBtn = document.getElementById("load-more-btn");
 const favourites = document.getElementById("favourites")
+const compare = document.getElementById("compare")
+const pokemonCompareContainer = document.getElementById("pokemon-compare")
+const compareOne = document.getElementById("compare-one")
+const comparetwo = document.getElementById("compare-two")
+const compareOneBtn = document.getElementById("compare-one-btn")
+const compareTwoBtn = document.getElementById("compare-two-btn")
 
 let counter = 0;
 let limit = 0;
@@ -175,6 +181,8 @@ function renderKantoPokemon(pokemonData) {
 
   pokemonImgEl.setAttribute("src", pokemonImg);
 
+  loadMoreBtn.removeAttribute("class", "hide")
+
   favIcon.setAttribute("class", "material-icons notFavourite btn")
 
   favIcon.innerHTML = "favorite_border"
@@ -286,6 +294,44 @@ function storageAppender() {
 
 }
 
+// eventlistener for adding to favourites
 favourites.addEventListener("click", (event) => {
+    event.preventDefault()
     storageAppender()
+    // let favIcon = document.getElementsByClassName("favorite")
+    // favIcon.setAttribute("class", "hide")
+    // might need to go in storageappdner?
 })
+
+
+// !!! evenet listener for compare
+compare.addEventListener("click", (event) => {
+    event.preventDefault()
+    pokemonCompareContainer.removeAttribute("class", "hide")
+    // pokemonCompare()
+})
+
+
+
+
+function fetchComparePokemon() {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${userInput}`)
+      .then((response) => response.json())
+      .then(function (pokemonData) {
+        console.log(pokemonData);
+        let comparePokemonId = pokemonData.id;
+  
+        fetchSinglePokemonData(comparePokemonId);
+      });
+  }
+  
+  // parses pokemon id to retrieve data
+  function fetchComparePokemonData(pokemonId) {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
+      .then((response) => response.json())
+      .then(function (singlePokemonData) {
+        console.log(singlePokemonData);
+        console.log(singlePokemonData.name);
+        renderPokemon(singlePokemonData);
+      });
+  }
