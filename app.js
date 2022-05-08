@@ -122,7 +122,7 @@ function renderPokemon(singlePokemonData) {
 
 // Compare two pokemon's statistics together, side-by-side.
 
-// Allow the user to maintain a list of their favourite Pokemon (extra points for data persistence (e.g. local storage)).
+
 
 // displays all kanto pokemon
 allPokemon.addEventListener("click", (event) => {
@@ -171,8 +171,13 @@ function renderKantoPokemon(pokemonData) {
   const pokemonWeightEl = document.createElement("p");
   const pokemonImgEl = document.createElement("img");
   const pokemonTypesEl = document.createElement("ul");
+  const favIcon = document.createElement("button")
 
   pokemonImgEl.setAttribute("src", pokemonImg);
+
+  favIcon.setAttribute("class", "material-icons notFavourite btn")
+
+  favIcon.innerHTML = "favorite_border"
 
   pokemonCard.setAttribute("class", "col p-4");
 
@@ -183,10 +188,29 @@ function renderKantoPokemon(pokemonData) {
 
   pokemonTypeCreator(pokemonData.types, pokemonTypesEl);
 
+  // toggles favourite icon
+// !!! ONLY TOGGLES ON
+favIcon.addEventListener("click", (event) => {
+    event.preventDefault()
+    if (favIcon) {
+        favIcon.removeAttribute("notFavourite")
+        favIcon.setAttribute("class", "favorite material-icons btn")
+        favIcon.innerHTML = "favorite"
+        storageSetter(pokemonNo, pokemonName)
+    } 
+
+  //   if (favIcon.innerHTML === "favorite") {
+  //     favIcon.removeAttribute("favorite")
+  //     favIcon.setAttribute("class", "notFavorite material-icons btn")
+  //     favIcon.innerHTML = "favorite_border"
+  //   }
+})
+
   pokemonCard.append(
     pokemonNameEl,
     pokemonNoEl,
     pokemonImgEl,
+    favIcon,
     pokemonHeightEl,
     pokemonWeightEl,
     pokemonTypesEl
@@ -231,6 +255,8 @@ loadMoreBtn.addEventListener("click", function () {
 //    })
 
 
+
+// Allow the user to maintain a list of their favourite Pokemon (extra points for data persistence (e.g. local storage)).
 function storageSetter(pokemonId, favouritePokemon) {
 
     let storageParams = {pokemonId, favouritePokemon }
