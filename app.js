@@ -232,9 +232,6 @@ loadMoreBtn.addEventListener("click", function () {
 
 
 function storageSetter(pokemonId, favouritePokemon) {
-    
-
-    // let pokemonId = pokemonData.id
 
     let storageParams = {pokemonId, favouritePokemon }
 
@@ -254,17 +251,13 @@ function storageGetter() {
 
 function storageAppender() {
 
-    debugger
     let storedFavourites = storageGetter()
 
-    // let fetchFavourites = JSON.stringify(storedFavourites)
+    for (i = 0; i < storedFavourites.length; i++) {
+        let favId = storedFavourites[i].pokemonId
+        fetchSinglePokemonData(favId)
+    }
 
-    let favId = storedFavourites[0].pokemonId
-    
-
-    // let idTrim = fetchFavourites.trim()
-
-    fetchSinglePokemonData(favId)
 }
 
 favourites.addEventListener("click", (event) => {
