@@ -20,6 +20,11 @@ ul {
   margin: 0;
 }
 
+.pokemon-card {
+  width: 170px;
+  height: 300px
+}
+
 .pokemon-card:hover {
   transform: translate(-0.2em, -0.2em);
   transition: all 0.1s ease 0s;
