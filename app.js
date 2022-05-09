@@ -20,7 +20,9 @@ let limit = 0;
 let favouritePokemon = document.getElementsByClassName("favorite");
 
 homeLink.addEventListener("click", (event) => {
-  window.location.reload()
+  window.location.reload(true)
+  pokemonContainer.innerHTML=""
+  pokemonCompareContainer.innerHTML=""
 })
 
 // search button eventListener
