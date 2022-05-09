@@ -53,7 +53,7 @@ function pokemonTypeCreator(types, ul) {
   types.forEach(function (type) {
     let typesLi = document.createElement("li");
 
-    typesLi.innerText = type["type"]["name"];
+    typesLi.innerText = "Type: " + type["type"]["name"];
 
     ul.append(typesLi);
   });
@@ -68,7 +68,7 @@ function renderPokemon(singlePokemonData) {
   let pokemonImg = singlePokemonData.sprites.front_default;
 
   const pokemonCard = document.createElement("div");
-  const pokemonNameEl = document.createElement("h2");
+  const pokemonNameEl = document.createElement("h6");
   const pokemonNoEl = document.createElement("p");
   const pokemonHeightEl = document.createElement("p");
   const pokemonWeightEl = document.createElement("p");
@@ -88,7 +88,7 @@ function renderPokemon(singlePokemonData) {
   favIcon.innerHTML = "favorite_border";
 
   pokemonNameEl.textContent = pokemonName;
-  pokemonNoEl.textContent = "Pokemon No: " + pokemonNo;
+  pokemonNoEl.textContent = "No: " + pokemonNo;
   pokemonHeightEl.textContent = "Height: " + pokemonHeight;
   pokemonWeightEl.textContent = "Weight: " + pokemonWeight;
 
@@ -109,6 +109,8 @@ function renderPokemon(singlePokemonData) {
     //     favIcon.innerHTML = "favorite_border"
     //   }
   });
+
+  pokemonCard.setAttribute("class", "d-flex flex-column justify-items-center align-items-center m-1 px-1 bg-light border border-rounded");
 
   pokemonCard.append(
     pokemonNameEl,
@@ -164,7 +166,7 @@ function renderKantoPokemon(pokemonData) {
   let pokemonImg = pokemonData.sprites.front_default;
 
   const pokemonCard = document.createElement("div");
-  const pokemonNameEl = document.createElement("h4");
+  const pokemonNameEl = document.createElement("h6");
   const pokemonNoEl = document.createElement("p");
   const pokemonHeightEl = document.createElement("p");
   const pokemonWeightEl = document.createElement("p");
@@ -181,10 +183,10 @@ function renderKantoPokemon(pokemonData) {
 
   favIcon.innerHTML = "favorite_border";
 
-  pokemonCard.setAttribute("class", "col p-4");
+  pokemonCard.setAttribute("class", "d-flex flex-column justify-items-center align-items-center m-1 pt-1 px-1 bg-light border border-rounded");
 
   pokemonNameEl.textContent = pokemonName;
-  pokemonNoEl.textContent = "Pokemon No: " + pokemonNo;
+  pokemonNoEl.textContent = "No: " + pokemonNo;
   pokemonHeightEl.textContent = "Height: " + pokemonHeight;
   pokemonWeightEl.textContent = "Weight: " + pokemonWeight;
 
@@ -286,6 +288,7 @@ compare.addEventListener("click", (event) => {
   mainSearch.innerHTML=""
   kantoDisplay.innerHTML=""
   pokemonContainer.innerHTML=""
+  loadMoreBtn.setAttribute("class", "hide")
 
   pokemonCompareContainer.removeAttribute("class", "hide");
 });
@@ -343,7 +346,7 @@ function renderComparePokemon(comparePokemonData) {
   let pokemonSpeed = comparePokemonData.stats[5].base_stat;
 
   const pokemonCard = document.createElement("div");
-  const pokemonNameEl = document.createElement("h4");
+  const pokemonNameEl = document.createElement("h6");
   const pokemonNoEl = document.createElement("p");
   const pokemonHeightEl = document.createElement("p");
   const pokemonWeightEl = document.createElement("p");
@@ -380,6 +383,8 @@ function renderComparePokemon(comparePokemonData) {
 
   pokemonTypeCreator(comparePokemonData.types, pokemonTypesEl);
 
+  pokemonCard.setAttribute("class", "d-flex flex-column justify-items-center align-items-center m-1 px-1 bg-light border border-rounded");
+
   pokemonCard.append(
     pokemonNameEl,
     pokemonNoEl,
@@ -395,5 +400,5 @@ function renderComparePokemon(comparePokemonData) {
     pokemonTypesEl
   );
 
-  document.getElementById("side-one").appendChild(pokemonCard);
+  document.getElementById("compare-render").appendChild(pokemonCard);
 }

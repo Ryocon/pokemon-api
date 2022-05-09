@@ -1,8 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 8pt;
+}
+
 .hide {
-    display: none;
+  display: none;
 }
 
 a {
-    text-decoration: none;
-    color: aliceblue;
+  text-decoration: none;
+  color: aliceblue;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pokemonCard:hover {
+  transform: translate(-0.1em, -0.1em);
+  transition: all 0.1s ease 0s;
+  box-shadow: 0.1em 0.1em;
 }
