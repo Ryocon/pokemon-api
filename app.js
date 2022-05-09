@@ -110,7 +110,7 @@ function renderPokemon(singlePokemonData) {
     //   }
   });
 
-  pokemonCard.setAttribute("class", "d-flex flex-column justify-items-center align-items-center m-1 px-1 bg-light border border-rounded");
+  pokemonCard.setAttribute("class", "pokemon-card d-flex flex-column justify-items-center align-items-center m-1 px-1 bg-light border border-rounded");
 
   pokemonCard.append(
     pokemonNameEl,
@@ -183,7 +183,7 @@ function renderKantoPokemon(pokemonData) {
 
   favIcon.innerHTML = "favorite_border";
 
-  pokemonCard.setAttribute("class", "d-flex flex-column justify-items-center align-items-center m-1 pt-1 px-1 bg-light border border-rounded");
+  pokemonCard.setAttribute("class", "pokemon-card d-flex flex-column justify-items-center align-items-center m-1 pt-1 px-1 bg-light border border-rounded");
 
   pokemonNameEl.textContent = pokemonName;
   pokemonNoEl.textContent = "No: " + pokemonNo;
