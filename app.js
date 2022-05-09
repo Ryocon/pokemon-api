@@ -271,6 +271,7 @@ function storageAppender() {
 favourites.addEventListener("click", (event) => {
   event.preventDefault();
   storageAppender();
+  loadMoreBtn.setAttribute("class", "hide")
   pokemonCompareContainer.setAttribute("class", "hide")
   pokemonContainer.innerHTML=""
   kantoDisplay.innerHTML=""
