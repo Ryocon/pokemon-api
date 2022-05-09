@@ -1,8 +1,8 @@
 const userSearch = document.getElementById("user-search");
 const searchBtn = document.getElementById("search-btn");
 const allPokemon = document.getElementById("all-pokemon");
-const mainSearch = document.getElementById("main-search")
-const kantoDisplay = document.getElementById("kanto-display")
+const mainSearch = document.getElementById("main-search");
+const kantoDisplay = document.getElementById("kanto-display");
 const loadMoreBtn = document.getElementById("load-more-btn");
 const favourites = document.getElementById("favourites");
 const compare = document.getElementById("compare");
@@ -11,8 +11,9 @@ const compareOne = document.getElementById("compare-one");
 const compareTwo = document.getElementById("compare-two");
 const compareOneBtn = document.getElementById("compare-one-btn");
 const compareTwoBtn = document.getElementById("compare-two-btn");
-const pokemonContainer = document.getElementById("pokemon-container")
+const pokemonContainer = document.getElementById("pokemon-container");
 
+// variables used to dynamically generate limit and offset for the list of pokemon
 let counter = 0;
 let limit = 0;
 let favouritePokemon = document.getElementsByClassName("favorite");
@@ -49,6 +50,7 @@ function fetchSinglePokemonData(pokemonId) {
 }
 
 // type helper function
+// iterates through pookemon type data and returns it as a list
 function pokemonTypeCreator(types, ul) {
   types.forEach(function (type) {
     let typesLi = document.createElement("li");
@@ -73,18 +75,21 @@ function renderPokemon(singlePokemonData) {
   const pokemonHeightEl = document.createElement("p");
   const pokemonWeightEl = document.createElement("p");
   const pokemonImgEl = document.createElement("img");
-  // iterating
+  // iterating list
   const pokemonTypesEl = document.createElement("ul");
+//   favourite icon
   const favIcon = document.createElement("button");
 
   // helper function to loop through types
   pokemonTypeCreator(singlePokemonData.types, pokemonTypesEl);
 
-  // set styling attributes
-
+//   source setting for each pokemon image
   pokemonImgEl.setAttribute("src", pokemonImg);
+
+//   source for favourite icon from google icons
   favIcon.setAttribute("class", "material-icons notFavourite btn");
 
+// required to set the icon type
   favIcon.innerHTML = "favorite_border";
 
   pokemonNameEl.textContent = pokemonName;
@@ -94,6 +99,7 @@ function renderPokemon(singlePokemonData) {
 
   // toggles favourite icon
   // !!! ONLY TOGGLES ON
+//   FUTURE UPDATE - make this work to show already favourited pokemon and to remove from local storage
   favIcon.addEventListener("click", (event) => {
     event.preventDefault();
     if (favIcon) {
@@ -110,7 +116,11 @@ function renderPokemon(singlePokemonData) {
     //   }
   });
 
-  pokemonCard.setAttribute("class", "pokemon-card d-flex flex-column justify-items-center align-items-center m-1 px-1 bg-light border border-rounded");
+//   styling for the data to be appended to the DOM
+  pokemonCard.setAttribute(
+    "class",
+    "pokemon-card d-flex flex-column justify-items-center align-items-center m-1 px-1 bg-light border border-rounded"
+  );
 
   pokemonCard.append(
     pokemonNameEl,
@@ -126,6 +136,7 @@ function renderPokemon(singlePokemonData) {
 }
 
 // displays all kanto pokemon
+// uses counter and limit to dynamically generate the amount to be iterated through and pulled from the API
 allPokemon.addEventListener("click", (event) => {
   event.preventDefault();
   counter = 0;
@@ -177,13 +188,19 @@ function renderKantoPokemon(pokemonData) {
   pokemonImgEl.setAttribute("src", pokemonImg);
 
   loadMoreBtn.removeAttribute("class", "hide");
-  loadMoreBtn.setAttribute("class", "btn btn-danger align-self-center d-flex align-self-center")
+  loadMoreBtn.setAttribute(
+    "class",
+    "btn btn-danger align-self-center d-flex align-self-center"
+  );
 
   favIcon.setAttribute("class", "material-icons notFavourite btn");
 
   favIcon.innerHTML = "favorite_border";
 
-  pokemonCard.setAttribute("class", "pokemon-card d-flex flex-column justify-items-center align-items-center m-1 pt-1 px-1 bg-light border border-rounded");
+  pokemonCard.setAttribute(
+    "class",
+    "pokemon-card d-flex flex-column justify-items-center align-items-center m-1 pt-1 px-1 bg-light border border-rounded"
+  );
 
   pokemonNameEl.textContent = pokemonName;
   pokemonNoEl.textContent = "No: " + pokemonNo;
@@ -227,6 +244,7 @@ function renderKantoPokemon(pokemonData) {
 loadMoreBtn.addEventListener("click", function () {
   // counter += 20
   // wibbly code - still goes past 151 then loops back to 0
+//   FUTURE UPDATE - make the search stop at 151
 
   if (counter < 151) {
     counter += 20 % 151;
@@ -243,7 +261,6 @@ loadMoreBtn.addEventListener("click", function () {
   fetchKantoPokemon();
 });
 
-
 // Allow the user to maintain a list of their favourite Pokemon (extra points for data persistence (e.g. local storage)).
 function storageSetter(pokemonId, favouritePokemon) {
   let storageParams = { pokemonId, favouritePokemon };
@@ -256,10 +273,12 @@ function storageSetter(pokemonId, favouritePokemon) {
   localStorage.setItem("favourite-pokemon", JSON.stringify(favouriteStorage));
 }
 
+// retrieves from local storage
 function storageGetter() {
   return JSON.parse(localStorage.getItem("favourite-pokemon"));
 }
 
+// appends to the DOM
 function storageAppender() {
   let storedFavourites = storageGetter();
 
@@ -273,22 +292,22 @@ function storageAppender() {
 favourites.addEventListener("click", (event) => {
   event.preventDefault();
   storageAppender();
-  loadMoreBtn.setAttribute("class", "hide")
-  pokemonCompareContainer.setAttribute("class", "hide")
-  pokemonContainer.innerHTML=""
-  kantoDisplay.innerHTML=""
+  loadMoreBtn.setAttribute("class", "hide");
+  pokemonCompareContainer.setAttribute("class", "hide");
+  pokemonContainer.innerHTML = "";
+  kantoDisplay.innerHTML = "";
   // let favIcon = document.getElementsByClassName("favorite")
   // favIcon.setAttribute("class", "hide")
-  // might need to go in storageappdner?
+  // FUTURE UPDATE - figure out how to remove the favourite icon
 });
 
 // event listener to reveal compare searches
 compare.addEventListener("click", (event) => {
   event.preventDefault();
-  mainSearch.innerHTML=""
-  kantoDisplay.innerHTML=""
-  pokemonContainer.innerHTML=""
-  loadMoreBtn.setAttribute("class", "hide")
+  mainSearch.innerHTML = "";
+  kantoDisplay.innerHTML = "";
+  pokemonContainer.innerHTML = "";
+  loadMoreBtn.setAttribute("class", "hide");
 
   pokemonCompareContainer.removeAttribute("class", "hide");
 });
@@ -383,7 +402,10 @@ function renderComparePokemon(comparePokemonData) {
 
   pokemonTypeCreator(comparePokemonData.types, pokemonTypesEl);
 
-  pokemonCard.setAttribute("class", "d-flex flex-column justify-items-center align-items-center m-1 px-1 bg-light border border-rounded");
+  pokemonCard.setAttribute(
+    "class",
+    "d-flex flex-column justify-items-center align-items-center m-1 px-1 bg-light border border-rounded"
+  );
 
   pokemonCard.append(
     pokemonNameEl,
