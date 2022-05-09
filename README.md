@@ -1,5 +1,8 @@
 # pokemon-api
 
+Pokemon API - [Github Repo](https://github.com/Ryocon/pokemon-api)
+Deployed - [Github Pages](https://ryocon.github.io/pokemon-api/)
+
 <img src=https://img.shields.io/badge/License-MIT-orange.svg>
 
   ## Table of Contents
