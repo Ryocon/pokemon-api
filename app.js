@@ -12,11 +12,16 @@ const compareTwo = document.getElementById("compare-two");
 const compareOneBtn = document.getElementById("compare-one-btn");
 const compareTwoBtn = document.getElementById("compare-two-btn");
 const pokemonContainer = document.getElementById("pokemon-container");
+const homeLink = document.getElementById("home-link")
 
 // variables used to dynamically generate limit and offset for the list of pokemon
 let counter = 0;
 let limit = 0;
 let favouritePokemon = document.getElementsByClassName("favorite");
+
+homeLink.addEventListener("click", (event) => {
+  window.location.reload()
+})
 
 // search button eventListener
 searchBtn.addEventListener("click", (event) => {
